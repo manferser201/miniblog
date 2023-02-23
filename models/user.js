@@ -1,16 +1,16 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var Post = require('../models/post.js');
+let mongoose = require('mongoose');
+let Schema = mongoose.Schema;
+let Post = require('../models/post');
+
 //Para la encriptación del password
-var bcrypt = require('bcryptjs');
-var SALT_WORK_FACTOR = 10;
-var UserSchema = new Schema({
+let bcrypt = require('bcryptjs');
+let SALT_WORK_FACTOR = 10;
+
+let UserSchema = new Schema({
     username: {
         type: String,
         required: true,
-        index: {
-            unique: true
-        }
+        index: { unique: true }
     },
     password: {
         type: String,
@@ -38,14 +38,16 @@ var UserSchema = new Schema({
 });
 
 UserSchema.pre('save', function (next) {
-    var user = this;
+    let user = this;
     // solo aplica una función hash al password si ha sido modificado (o es nuevo)
     if (!user.isModified('password ')) return next();
     // genera la salt
     bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
+
         if (err) return next(err);
         // aplica una función hash al password usando la nueva salt
         bcrypt.hash(user.password, salt, function (err, hash) {
+            
             if (err) return next(err);
             // sobrescribe el password escrito con el “hasheado”
             user.password = hash;
@@ -62,4 +64,4 @@ UserSchema.methods.comparePassword = function (candidatePassword, cb) {
     });
 };
 
-module.exports = mongoose.model('user', UserSchema);
+module.exports = mongoose.model('User ', UserSchema);

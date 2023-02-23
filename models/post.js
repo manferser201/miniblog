@@ -1,17 +1,18 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var User = require('../models/user.js');
-var PostSchema = new Schema({
+let mongoose = require('mongoose');
+let Schema = mongoose.Schema;
+let User = require('../models/user');
+
+let PostSchema = new Schema({
     user: {
         type: Schema.ObjectId,
         ref: 'User'
     },
     title: String,
     description: String,
-    publicationdate: {
-        type: Date,
-        default: Date.now
+    publicationdate: { 
+        type: Date, 
+        default: Date.now 
     }
 });
 
-module.exports = mongoose.model('post', PostSchema);
+module.exports = mongoose.model('Post', PostSchema);

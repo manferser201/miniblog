@@ -1,18 +1,18 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+let createError = require('http-errors');
+let express = require('express');
+let path = require('path');
+let cookieParser = require('cookie-parser');
+let logger = require('morgan');
 
 require('dotenv').config();
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var bodyparser = require('body-parser');
-var userModel = require('./models/user');
-var postModel = require('./models/post');
+let indexRouter = require('./routes/index');
+let usersRouter = require('./routes/users');
+let bodyparser = require('body-parser');
+let userModel = require('./models/user');
+let postModel = require('./models/post');
 
-var mongoose = require('mongoose');
+let mongoose = require('mongoose');
 mongoose.set('strictQuery', false); //requerido para quitar el warning
 mongoose.connect(process.env.DB_URI, { useNewUrlParser: true })
   .then(() => console.log('connection successful'))
@@ -20,7 +20,7 @@ mongoose.connect(process.env.DB_URI, { useNewUrlParser: true })
 
 mongoose.connection;
 
-var app = express();
+let app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
